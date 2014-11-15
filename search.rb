@@ -11,10 +11,24 @@
 		people = Person.where("last_name LIKE '%#{last_name}%'")
 		return people
 	end
-	
+
+	def search_email
+		print "\nEmail: "
+		email = gets.chomp 
+		emails = Email.where("email LIKE '%#{email}%'")
+		if emails.empty?
+			puts "\nNo entries found\n\n"
+		else
+			puts "\n#{emails.count} emails found…\n\n"
+			emails.each do |email|
+				puts "#{email.person.first_name} #{email.person.last_name}: #{email.email}"
+			end
+		end
+	end
+
 	def list(people)
 		if people.empty?
-			puts "Stop wasting time!"
+			puts "\nNo entries found\n\n"
 		else
 			people.each do |entry|
 				puts "#{entry.first_name} #{entry.last_name}"
@@ -33,10 +47,12 @@
 def search
 
 	menu = 0
+	puts "\n"
 	puts "-+-+-+-Search-+-+-+-"
 	puts "1 - …by first name"
 	puts "2 - …by last name"
-	puts "3 - Return to main menu"
+	puts "3 - …by email"
+	puts "4 - Return to main menu"
 	print "\n? "
 	menu = gets.chomp
 
@@ -49,6 +65,8 @@ def search
 			result = search_last_name
 			list(result)
 		elsif select == 3
+			result = search_email
+		elsif select == 4
 			puts "\nReturning to main menu…\n\n"
 		else
 			puts "\nStop wasting time!\n\n"

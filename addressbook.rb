@@ -7,6 +7,7 @@ require_relative 'search'
 
 begin
 	menu = 0
+	puts "\n"
 	puts "-+-+-+-Menu-+-+-+-"
 	puts "1 - Create new entry"
 	puts "2 - Search for entries"
@@ -21,7 +22,8 @@ begin
 		elsif select == 2
 			search
 		elsif select == 3
-			puts "\nQuitting application…\n\n"
+			entries = Person.count
+			puts "\nQuitting application… your #{entries} entries are safe and sound.\n\n"
 		else
 			puts "\nStop wasting time!\n\n"
 		end
