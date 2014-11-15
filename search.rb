@@ -1,25 +1,36 @@
-def search
 	def search_first_name
 		print "First name: "
 		first_name = gets.chomp 
-		p = Person.where(first_name: first_name)
-		puts p.inspect
-		p.each do |first_name, last_name|
-			puts self.inspect
-			puts "Phone numbers:"
-			self.phones.each do |label, phone|
-				"#{self.label}: #{self.phone}"
-			end
-			puts "Emails:"
-			self.emails.each do |label, email|
-				"#{self.label}: #{self.email}"
+		people = Person.where("first_name LIKE '%#{first_name}%'")
+		return people
+	end
+
+	def search_last_name
+		print "Last name: "
+		last_name = gets.chomp 
+		people = Person.where("last_name LIKE '%#{last_name}%'")
+		return people
+	end
+	
+	def list(people)
+		if people.empty?
+			puts "Stop wasting time!"
+		else
+			people.each do |entry|
+				puts "#{entry.first_name} #{entry.last_name}"
+				puts "Phone numbers:"
+				entry.phones.each do |phone|
+					puts "#{phone.label}: #{phone.phone}"
+				end
+				puts "Emails:"
+				entry.emails.each do |email|
+					puts "#{email.label}: #{email.email}"
+				end
 			end
 		end
 	end
 
-	def search_last_name
-
-	end
+def search
 
 	menu = 0
 	puts "-+-+-+-Search-+-+-+-"
@@ -28,13 +39,15 @@ def search
 	puts "3 - Return to main menu"
 	print "\n? "
 	menu = gets.chomp
-	
+
 	begin 
 		select  = Integer(menu)
 		if select == 1
-			search_first_name
+			result = search_first_name
+			list(result)
 		elsif select == 2
-			search_last_name
+			result = search_last_name
+			list(result)
 		elsif select == 3
 			puts "\nReturning to main menu…\n\n"
 		else
