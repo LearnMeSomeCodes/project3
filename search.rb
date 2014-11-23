@@ -1,3 +1,8 @@
+  ### Yup -- having this method focus solely on
+  ###        returning a collection of People
+  ###        allows you to reuse its output for
+  ###        different purposes (such as passing
+  ###        it to the #list method you defined)
 	def search_first_name
 		print "First name: "
 		first_name = gets.chomp 
@@ -12,6 +17,9 @@
 		return people
 	end
 
+  ### TODO: Have this method return a collection
+  ###       of People so that its output can be
+  ###       passed to the #list method.
 	def search_email
 		print "\nEmail: "
 		email = gets.chomp 
@@ -65,14 +73,26 @@ def search
 			result = search_last_name
 			list(result)
 		elsif select == 3
+      ### TODO: Modify the search_email method so that
+      ###       it returns a collection of People.  That
+      ###       way, you could pass the result to the
+      ###       #list method.
 			result = search_email
 		elsif select == 4
 			puts "\nReturning to main menu…\n\n"
 		else
 			puts "\nStop wasting time!\n\n"
+
+      ### TODO: This will return to the main menu.
+      ###       How would you change the code so
+      ###       that it remains on the current menu?
 		end
 	rescue ArgumentError
 		puts "\nStop wasting time, use a number!\n\n"
+
+    ### TODO: This will return to the main menu.
+    ###       How would you change the code so
+    ###       that it remains on the current menu?
 	end
 
 end
